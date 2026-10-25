@@ -1,6 +1,6 @@
 # Sandboxes and Workspaces
 
-Status: planned. Use the official DockerSandbox capability. Check its lifecycle and transport behavior against the selected release.
+Status: implemented with public DockerSandboxBackend, the backend used by DockerSandbox. Bind mounts, named volumes, restart, and replacement are covered by Docker integration tests.
 
 ## Local files and server files
 

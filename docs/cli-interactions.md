@@ -1,6 +1,6 @@
 # CLI Interaction Specification
 
-Status: planned. This document defines the terminal experience for the approved architecture. It does not describe an implemented CLI. Command names, key bindings, state labels, and output formats are proposed application contracts. Verify framework hooks and event names against the pinned Pydantic AI and Harness releases before implementation.
+Status: interaction contract for the implemented CLI. The mockup is a design reference. The current CLI uses inline event records and a compact status prompt. See [implementation status](implementation-status.md) for remaining presentation work.
 
 ![Planned CLI workspace](diagrams/cli-workspace.png)
 

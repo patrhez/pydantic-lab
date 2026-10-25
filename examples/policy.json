@@ -1,0 +1,7 @@
+{
+  "revision": "1",
+  "auto_allow": [],
+  "allowed_commands": ["git", "rg", "python", "python3", "uv", "node", "npm", "pytest"],
+  "denied_commands": [],
+  "denied_operators": [";", "&&", "||", "|", ">", "<", "`", "$("]
+}

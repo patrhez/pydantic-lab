@@ -1,6 +1,6 @@
 # Web Interaction Specification
 
-Status: planned. This document defines the browser experience for the approved architecture. It does not describe an implemented frontend, API, or event schema. Browser routes, component names, display states, and request identities are proposed application contracts. Verify framework hooks and event names against the pinned Pydantic AI and Harness releases before implementation.
+Status: interaction contract for the implemented Web interface. Routes and event payloads are defined in [API source](../src/pydantic_lab/api/server.py) and [control source](../src/pydantic_lab/application/controls.py). See [implementation status](implementation-status.md) for verification coverage.
 
 ![Planned Web workspace](diagrams/web-workspace.png)
 

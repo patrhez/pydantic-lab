@@ -1,12 +1,12 @@
 # Documentation Review
 
-Review date: 2026-10-25. Scope: documentation, Excalidraw diagrams, SVG mockups, and rendered previews only.
+Review date: 2026-10-25. Scope: specification, implementation, tests, learning documents, and existing diagrams.
 
 ## Result
 
-The guides cover the confirmed product decisions and the planned CLI, Web, and visual interactions. The manual review found no unresolved requirement conflict. Runtime behavior still needs executable checks, including framework APIs, recovery hooks, and the proposed service layout.
+The core implementation follows the confirmed service, execution, persistence, and sandbox decisions. Native API probes and runtime tests replace the earlier design assumptions. The [status page](implementation-status.md) records remaining presentation and verification work.
 
-The repository has no application code. The README and the status page say so. The new interaction documents mark their state names, command names, routes, component contracts, and mockups as planned or proposed.
+The README now provides working commands. The [source walkthrough](implementation.md) explains actual hook placement and adapters. Interaction mockups remain design references, rather than screenshots of every current component.
 
 ## Requirement coverage
 
@@ -68,4 +68,15 @@ Completed checks:
 - Calculated WCAG AA normal-text contrast for the specified light and dark semantic token pairs. All passed.
 - Compared the new documents against the specification and the requirement coverage table.
 
-Runtime tests were not run, and they are not reported as passing. Framework versions remain unpinned, and all framework hook claims require executable probes before implementation.
+Runtime, Docker, MySQL, Redis-loss, browser, terminal, MCP, and live DeepSeek checks have now run. See [implementation status](implementation-status.md) for evidence. The earlier diagram and contrast checks above describe the design artifacts; they do not certify every rendered product state.
+
+## Implementation corrections
+
+- Current and proposed diffs use an internal read-only inspection endpoint. They are not copied into durable display state.
+- Normal agent-service shutdown preserves a pending run. A durable Stop cancels it.
+- Approval waits release worker capacity while retaining the session execution slot.
+- Docker DNS is resolved again after an independent API replacement.
+- Send completion clears only the submitted draft. New text typed during that request remains.
+- Trusted package contents are checked again before approved tools execute.
+- Linux dependency volumes cover host `.venv` and `node_modules` and survive container restart.
+- CLI noninteractive resume instructions include the state directory and demo flags when required.

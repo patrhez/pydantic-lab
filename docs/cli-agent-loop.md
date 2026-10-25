@@ -1,6 +1,6 @@
 # Inside the CLI Agent Loop
 
-Status: planned. This guide shows where each component sits. It does not replace the framework loop. Hook timing still has to be checked against the pinned release.
+Status: implemented with Pydantic AI 2.61.0 and Harness 0.61.0. The diagram shows ownership and recovery boundaries; the [source walkthrough](implementation.md) maps them to code.
 
 ![CLI agent loop, approval, checkpoints, and recovery](diagrams/cli-agent-loop.png)
 

@@ -1,11 +1,12 @@
 # Documentation
 
-These documents describe the system we plan to build. None of it has been implemented or tested. See the [implementation status](implementation-status.md) for what exists in the repository today.
+These documents explain the implemented lab and its required behavior. Start with the [source walkthrough](implementation.md). The [implementation status](implementation-status.md) distinguishes verified behavior from remaining work.
 
 ## Reading order
 
 | Document | Purpose |
 | --- | --- |
+| [Source walkthrough](implementation.md) | Working code, native APIs, and learning exercises |
 | [Specification](specification.md) | Required behavior and release scope |
 | [Decisions](decisions.md) | Reasons, alternatives, and costs |
 | [Architecture](architecture.md) | Services, data ownership, and deployment |

@@ -1,6 +1,6 @@
 # Verification Plan
 
-Status: required checks, not completed results. There is no executable application yet.
+Status: executable checks are available. Observed results are recorded in [implementation status](implementation-status.md). The scenarios below remain the acceptance checklist.
 
 ## Test levels
 
@@ -51,3 +51,63 @@ Read the supported literal DeepSeek key and base URL assignments from `~/.zshrc`
 ## Evidence and documentation
 
 After implementation, add the exact commands that worked, and their results, to the status page. List skips and failures. Add a success badge or a runnable quick start only after the matching checks pass. On each feature change, review this matrix against the code and the guides.
+
+## Executable commands
+
+Build `pydantic-lab-sandbox:local` first, as shown in the root README. Build the agent image before the stdio MCP integration test, which uses that image without controller privileges.
+
+```sh
+uv sync --locked
+uv run ruff check src tests scripts
+uv run pytest -q
+RUN_LIVE=1 uv run pytest -q tests/test_live.py -s
+npm --prefix frontend ci
+npm --prefix frontend run build
+npm --prefix frontend test -- --run
+```
+
+The default Python suite includes real Docker integration. It skips the two paid provider tests and three MySQL concurrency tests unless their opt-in settings are supplied. To run only local unit checks, use `uv run pytest -q -m 'not integration and not live'`.
+
+For service and browser checks, start a deterministic write model:
+
+```sh
+LAB_DEMO=1 LAB_DEMO_TOOL=write_file uv run python scripts/compose.py up -d --build
+uv run python scripts/service_smoke.py
+uv run python scripts/service_smoke.py --chaos
+uv run playwright install chromium
+uv run python scripts/browser_smoke.py
+```
+
+The chaos variant rebuilds API and Web, restarts the agent, and stops Redis temporarily. Run it with other sessions idle. Both scripts create and delete their own disposable session. Browser screenshots go to ignored `.local-data/screenshots/`. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use an existing compatible Chromium binary.
+
+Return the agent to real-provider mode after the tests:
+
+```sh
+LAB_DEMO=0 uv run python scripts/compose.py up -d --no-deps agent
+```
+
+Do not run `down -v` against state you want to keep. Session cleanup belongs to the sandbox manager, because its workspace volumes are independent of Compose volumes.
+
+## MySQL concurrency regression
+
+`tests/test_steps_mysql.py` exercises real MySQL connections. SQLite cannot reproduce InnoDB gap locks. The regression runs six batches of 96 event writes across three independent adapters, including repeated keys. It also runs four native agents with parallel tool calls and checks snapshot deduplication, effect updates, and duplicate run rejection.
+
+With a reachable test database, run:
+
+```sh
+LAB_TEST_DATABASE_URL='mysql+pymysql://user:password@host/database' uv run pytest -q tests/test_steps_mysql.py
+```
+
+With the local Compose database, run inside a disposable agent container after building the current image:
+
+```sh
+docker compose run --rm --no-deps \
+  --volume "$PWD/tests:/tests:ro" agent sh -c '
+  uv pip install --python /app/.venv/bin/python pytest pytest-asyncio &&
+  LAB_TEST_DATABASE_URL="$LAB_DATABASE_URL" /app/.venv/bin/python -m pytest \
+    -q -p no:cacheprovider -o asyncio_mode=auto \
+    -o markers="integration: database integration" /tests/test_steps_mysql.py
+  '
+```
+
+The tests create unique run IDs and remove only their own framework records. They make no paid model requests. Repeat the three-test module when changing concurrency or persistence semantics.

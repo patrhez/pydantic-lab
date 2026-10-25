@@ -1,38 +1,89 @@
 # Pydantic AI Coding Agent Lab
 
-Learn advanced Pydantic AI features by building a terminal coding agent and a web coding agent.
+A readable coding agent lab with two interfaces: an inline terminal CLI and a Web workspace. Both use the same Pydantic AI runtime.
 
-**Status: design only.** This repository contains the specification and learning documents. There is no runnable agent, API, frontend, or deployment yet. Framework versions and extension points still need executable verification.
+The CLI edits your actual repository through a Docker bind mount. The server clones a public Git repository into a separate Docker volume for each session. The frontend, API server, agent server, MySQL, and Redis run as separate Compose services.
 
-## What the lab will cover
+![System architecture](docs/diagrams/system-architecture.png)
 
-- File editing and command execution in Docker sandboxes.
-- Allowlists, execution approval, receipts, and checkpoint recovery.
-- Queue and steer input during a run, with Stop and Continue controls.
-- Context compaction, Agent Skills, repository instructions, and MCP.
-- Separate frontend, API server, and agent server deployments.
-- A session list, MySQL persistence, Redis notifications, and event replay.
+## Features
 
-The CLI will edit your actual repository through a bind mount. The server will clone a public Git repository into a separate workspace for each session. Both interfaces will use one agent per run. Different sessions can execute concurrently.
+- Native file tools, shell controls, deferred approval, and checkpoint persistence.
+- Exact-operation approvals, explicit allow rules, execution receipts, and learning logs.
+- FIFO Queue, safe-boundary Steer, Stop, Continue, and explicit recovery for unknown outcomes.
+- Native context summarization, Skills, repository instructions, and both MCP transports.
+- Session list, committed streaming output, SSE replay, current Git diff, and approval previews.
+- Independent service updates, persistent workspaces, idle stop, and container replacement.
 
-## Architecture
+Versions: Pydantic AI **2.61.0**, Harness **0.61.0**, and FastMCP **4.1.3**. Python dependencies are locked in `uv.lock`. Frontend dependencies are locked in `frontend/package-lock.json`.
 
-![Planned system architecture](docs/diagrams/system-architecture.png)
+## Quick start
 
-MySQL will hold server state. Redis will send notifications only. The API server will handle user requests and event delivery. The agent server will run agents and manage their execution environments. Each server session will have a separate sandbox and workspace volume.
+Install Python 3.11+, uv, and Docker. Start the Docker daemon. Node 22+ is required only for frontend development outside Docker.
 
-## Read the documents
+```sh
+uv sync --locked
+# Build the shared tool image before the application images.
+docker build -f docker/sandbox.Dockerfile -t pydantic-lab-sandbox:local .
+```
 
-Start with the [documentation index](docs/README.md). Read the [specification](docs/specification.md) for requirements and the [architecture guide](docs/architecture.md) for component boundaries. The [CLI loop guide](docs/cli-agent-loop.md) locates model calls, tool calls, approvals, receipts, and checkpoints. The [CLI](docs/cli-interactions.md), [Web](docs/web-interactions.md), and [visual](docs/visual-design.md) specifications define the planned user experience. The [decision record](docs/decisions.md) explains the choices.
+Configure `DEEPSEEK_API_KEY`, `DEEPSEEK_BASE_URL`, and optionally `DEEPSEEK_MODEL`. Environment variables take precedence over `.env` values and supported quoted literal assignments in `~/.zshrc`. The loader does not execute that file. The default model is `deepseek-flash`.
 
-The design uses public Pydantic AI and Harness capabilities first. Application code will supply only the controls and adapters that the framework does not provide. See the [framework integration guide](docs/integrations.md).
+Run the CLI against a repository:
 
-## Scope
+```sh
+uv run pydantic-lab --workspace /absolute/path/to/repository
+# Deterministic mode: real framework tools and Docker, no paid model requests.
+uv run pydantic-lab --demo --workspace /absolute/path/to/repository "List the files"
+```
 
-Release one targets a single user on a local Docker installation. It will not include user management, sub-agent delegation, file rollback, private Git credentials, or a large command menu. Model requests will use the configured DeepSeek endpoint. Credentials will stay outside Git and tool sandboxes.
+Tab switches Queue and Steer during execution. Use `/allow`, `/reject`, `/diff`, `/trust`, `/stop`, and `/continue`. For unknown outcomes, inspect the workspace and choose `/continue`, `/retry`, or `/abort`. Approval in noninteractive mode exits with status `3` and prints the exact resume command. Local state defaults to `~/.local/share/pydantic-lab`.
 
-## Development
+Start the Web services with the same provider configuration:
 
-Implementation starts after specification approval. Installation and run commands will be added with working code and test evidence. Do not treat examples in design documents as an available API.
+```sh
+uv run python scripts/compose.py up -d --build
+# Or run a deterministic demo:
+LAB_DEMO=1 uv run python scripts/compose.py up -d --build
+```
 
-Keep documentation and implementation in the same change. Use English throughout the repository and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). See [contribution rules](CONTRIBUTING.md).
+Open [the Web workspace](http://127.0.0.1:8080). The [API reference](http://127.0.0.1:8000/docs) is also local. Create a session with a public Git URL and an optional branch or full commit SHA. Initialization commands require approval before chat becomes available.
+
+Update one service without restarting the agent:
+
+```sh
+uv run python scripts/compose.py up -d --build --no-deps web
+uv run python scripts/compose.py up -d --build --no-deps api
+```
+
+`docker compose down` keeps database and session volumes. Delete a session through the UI to remove its workspace and dependency volumes. Session volumes are created by the sandbox manager, outside Compose's volume list.
+
+## Policies and extensions
+
+Use `--policy examples/policy.json` for the CLI. Server session creation accepts a `policy` object. `LAB_POLICY_JSON` sets the API's default policy for new sessions. Policies are saved with each session. Resume uses that saved policy.
+
+Repository extensions start inactive. Put Skills under `.agents/skills/` or `.claude/skills/`, instructions in `AGENTS.md` or `CLAUDE.md`, and MCP definitions in `.mcp.json`. Inspect their content, then grant trust per category. Content changes require new trust. Trust never approves a tool operation.
+
+See [the extension examples](docs/implementation.md#skills-and-mcp) for stdio dependencies and HTTP placement.
+
+## Verification
+
+```sh
+uv run ruff check src tests scripts
+uv run pytest -q                         # Includes Docker; paid and explicit MySQL tests skip.
+uv run pytest -q -m 'not integration and not live'
+RUN_LIVE=1 uv run pytest -q tests/test_live.py -s
+npm --prefix frontend ci
+npm --prefix frontend run build
+npm --prefix frontend test -- --run
+```
+
+[Verification instructions](docs/verification.md) include disposable Compose restart tests and browser tests. [Implementation status](docs/implementation-status.md) records observed results and remaining limits.
+
+## Learn the implementation
+
+Start with the [source walkthrough](docs/implementation.md), then follow the [CLI loop diagram](docs/cli-agent-loop.md). The [documentation index](docs/README.md) links the specification, architecture, decisions, persistence rules, and interaction contracts.
+
+This release targets one user on local Docker. It has no user management, sub-agents, private Git credentials, or file rollback. Shell allowlists are best-effort guardrails. Writable mounts expose the real files you selected. Provider keys remain in the controller; do not place them in a repository that tools can read.
+
+Write repository content in English. Keep documentation and implementation aligned. Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). See [contribution rules](CONTRIBUTING.md).

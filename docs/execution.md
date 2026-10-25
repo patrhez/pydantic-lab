@@ -1,6 +1,6 @@
 # Agent Execution and User Controls
 
-Status: planned. The state names and log labels below are application examples. They are not framework event names.
+Status: implemented. State and log names below are application records, not framework event names. See the [source walkthrough](implementation.md) and [test evidence](implementation-status.md).
 
 ![Planned execution boundaries](diagrams/execution.png)
 

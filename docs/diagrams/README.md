@@ -1,6 +1,6 @@
 # System Diagrams
 
-These diagrams show planned behavior. They are not a record of an implemented protocol.
+The system diagrams show component ownership and execution boundaries. UI mockups remain design references. See the [source walkthrough](../implementation.md) for actual routes and persistence contracts.
 
 | Diagram | Editable source | Preview |
 | --- | --- | --- |

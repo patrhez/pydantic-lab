@@ -1,6 +1,6 @@
 # Pydantic AI Coding Agent Lab Specification
 
-Status: draft for owner review. The product decisions below were confirmed in conversation. Implementation defaults stay proposals until this document is approved.
+Status: approved for implementation by the owner on 2026-10-25. Verify proposed framework hooks against the pinned release before relying on them.
 
 ## Document rules
 

@@ -1,6 +1,6 @@
 # Architecture
 
-Status: planned. The [specification](specification.md) defines the requirements. The [status page](implementation-status.md) lists the implementation evidence.
+Status: implemented service boundaries. See [implementation status](implementation-status.md) for verified behavior and limits.
 
 ## Service boundaries
 
@@ -28,7 +28,9 @@ The scheduler and the sandbox manager belong to the agent-service application la
 5. The agent server commits events, receipts, and checkpoint references at the required boundaries.
 6. The API replays committed events over SSE. The browser reconnects from its last cursor.
 
-A Redis hint can wake a reader after step 2 or step 5. The reader still queries MySQL. The frontend must keep working if the original API process is gone.
+Redis publishes a hint after step 2 or step 5. This release uses bounded polling and queries MySQL directly. The frontend must keep working if the original API process is gone.
+
+Read-only diff, approval preview, and extension inspection pass through the API to an internal agent-service endpoint. Their derived content is transient. Lifecycle actions use durable commands.
 
 ## Data relationships
 
@@ -45,15 +47,15 @@ Session
   +-- Sandbox binding -> container reference + workspace volume
 ```
 
-Keep a user message and its scheduling change in one transaction. Check run ownership before committing execution state. Bind an approval decision to the pending call, and reject a decision for an invalidated request or changed policy/configuration revision. Save checkpoint references and their boundary events together. None of these transactions includes an external file change or command effect.
+Keep a user message and its scheduling change in one transaction. Check run ownership before committing execution state. Bind an approval decision to the pending call, and reject a decision for an invalidated request or changed policy/configuration revision. Native snapshots commit before their boundary log. Recovery reads the native store if that log is missing. None of these transactions includes an external file change or command effect.
 
 ## Local path
 
 The CLI runs the same runtime in its own process. It uses a framework local store instead of MySQL, and it mounts the selected real repository into Docker. It does not need the web services or Redis. CLI input and rendering must stay responsive while the run executes.
 
-## Proposed source layout
+## Source layout
 
-These directories do not exist yet. Names can change after the framework APIs are verified.
+These directories contain the implementation. See the [source map](implementation.md#source-map).
 
 ```text
 src/pydantic_lab/

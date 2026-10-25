@@ -1,6 +1,6 @@
 # Framework Integrations
 
-Status: proposed integration plan. Public documentation was reviewed on 2026-10-25. This repository has not yet pinned a package version or run an integration probe.
+Status: pinned and verified with Pydantic AI 2.61.0, Harness 0.61.0, and FastMCP 4.1.3. See [implementation details](implementation.md) and [test evidence](implementation-status.md).
 
 ## Reuse before adaptation
 
@@ -16,9 +16,9 @@ Status: proposed integration plan. Public documentation was reviewed on 2026-10-
 | Repository instructions | RepoContext | Trust gate and loaded-file records |
 | MCP | MCPToolset and configuration loader | Transport placement and permission routing |
 
-Framework symbols can change. Pin versions, run small probes, and record the actual hooks before building adapters. If a hook is missing, do not fill the gap with private CLAI imports.
+Framework symbols can change. The lockfile and integration tests define the supported versions. If a hook is missing, do not fill the gap with private CLAI imports.
 
-Online documentation confirms these boundaries, subject to version probes:
+The pinned public APIs and integration tests confirm these boundaries:
 
 - Deferred approvals use `DeferredToolRequests`, durable conversation state, and `DeferredToolResults`. A follow-up run has a new framework run ID. Correlate it to the logical application run.
 - StepPersistence ships in-memory, file, SQLite, MongoDB, and PostgreSQL stores. MySQL requires a custom `StepStore` adapter.
@@ -41,7 +41,7 @@ Official CLAI includes an MCP trust workflow. That workflow belongs to the CLAI 
 
 Use the official [MCP client](https://pydantic.dev/docs/ai/mcp/client/) and loader for trusted definitions.
 
-- **stdio:** run the program inside the session sandbox. A proposed transport launches `docker exec -i` with explicit arguments. Check process cleanup and transport errors. The Docker bridge runs in the trusted controller. It is not an agent tool.
+- **stdio:** run the program inside the session sandbox. The transport launches `docker exec -i` with explicit arguments. Check process cleanup and transport errors. The Docker bridge runs in the trusted controller. It is not an agent tool.
 - **Streamable HTTP:** connect from the agent service to a configured destination. Pass credentials through environment references. Do not put secrets in repository files.
 
 Apply the approval and receipt rules to MCP tools. Tool annotations are hints, not authorization. Include a deterministic example service and tests for both transports. OAuth setup, a configuration editor, and a marketplace are out of scope.

@@ -1,6 +1,6 @@
 # Visual Design Specification
 
-Status: planned. This document defines the visual direction for the CLI and Web UI. It does not describe implemented styles or components. Token names and component contracts are proposed application contracts.
+Status: design reference for the implemented developer console. Editable mockups describe the intended layout. See [implementation status](implementation-status.md) for visual verification and remaining work.
 
 ## Direction
 

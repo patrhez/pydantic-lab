@@ -1,6 +1,6 @@
 # Design Decisions
 
-Status: agreed product choices. Implementation details still depend on framework verification.
+Status: agreed choices implemented with pinned public framework APIs. See [implementation details](implementation.md) for the adapters and their costs.
 
 | Decision | Reason | Cost or limit |
 | --- | --- | --- |

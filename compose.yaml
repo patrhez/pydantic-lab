@@ -1,0 +1,91 @@
+name: pydantic-lab
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-local-root-password}
+      MYSQL_DATABASE: pydantic_lab
+      MYSQL_USER: lab
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-local-lab-password}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost --silent"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 20
+  api:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+      target: api
+    environment:
+      LAB_POLICY_JSON: ${LAB_POLICY_JSON:-}
+      LAB_API_HOST: 0.0.0.0
+      LAB_AGENT_URL: http://agent:8001
+      LAB_DATABASE_URL: mysql+pymysql://lab:${MYSQL_PASSWORD:-local-lab-password}@mysql/pydantic_lab
+      LAB_REDIS_URL: redis://redis:6379/0
+    volumes:
+      - api-state:/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  agent:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+      target: agent
+    environment:
+      LAB_DATABASE_URL: mysql+pymysql://lab:${MYSQL_PASSWORD:-local-lab-password}@mysql/pydantic_lab
+      LAB_REDIS_URL: redis://redis:6379/0
+      LAB_CONCURRENCY: ${LAB_CONCURRENCY:-4}
+      LAB_IDLE_SECONDS: ${LAB_IDLE_SECONDS:-300}
+      LAB_DEMO: ${LAB_DEMO:-0}
+      LAB_DEMO_TOOL: ${LAB_DEMO_TOOL:-list_directory}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-flash}
+    volumes:
+      - agent-state:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/internal/health')"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - api
+volumes:
+  mysql-data:
+  redis-data:
+  api-state:
+  agent-state:

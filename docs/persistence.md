@@ -1,6 +1,6 @@
 # Persistence, Recovery, and Logs
 
-Status: planned. Upstream documents the framework behavior. This lab does not yet have a storage adapter that has been tested.
+Status: implemented. The CLI uses native SQLite persistence. The MySQL StepStore adapter has passed framework continuation and service restart tests.
 
 ## Three kinds of state
 
@@ -10,7 +10,7 @@ Status: planned. Upstream documents the framework behavior. This lab does not ye
 | Sessions, controls, approvals, bindings | Small local application store where needed | MySQL application records |
 | Workspace files | Real repository bind mount | Session volume |
 
-StepPersistence saves message snapshots at settled steps and records events and tool effects. It does not store every application field, and it does not snapshot the workspace files. Choose a native local backend after the API probe. Reuse framework receipts where they already record the outcome. Do not store the same fact again under another name. See [Step Persistence](https://pydantic.dev/docs/ai/harness/step-persistence/).
+StepPersistence saves message snapshots at settled steps and records events and tool effects. It does not store every application field, and it does not snapshot the workspace files. The CLI uses native SqliteStepStore. Reuse framework receipts where they already record the outcome. Do not store the same fact again under another name. See [Step Persistence](https://pydantic.dev/docs/ai/harness/step-persistence/).
 
 ## Required recovery data
 
@@ -37,7 +37,7 @@ Stop an old execution attempt from writing after ownership has moved. Release on
 
 Use structured records and readable console output. Correlate the session, logical run, framework run, tool call, approval, and checkpoint IDs. Include the time, event kind, state, decision source, and duration when they apply.
 
-These are proposed application log labels:
+These are application log labels:
 
 ```text
 approval.requested   tool=edit_file
@@ -52,7 +52,7 @@ Log queue acceptance, steer consumption, expired approvals, Stop, Continue, sand
 
 ## Browser replay and diff
 
-Commit server display events before publishing Redis hints. Give each event an ordered cursor. Commit coalesced assistant chunks before SSE delivery, so replay can reconstruct a partial answer. Flush on a closed Markdown block, 2 KiB, or a 100 ms buffer age, whichever comes first. Flush pending text before terminal and approval/tool boundary events. On reconnect, read from MySQL after that cursor. A snapshot plus replay must not leave a gap. The exact cursor scope and endpoint contract will be fixed when the implementation tests are written.
+Commit server display events before publishing Redis hints. Give each event an ordered cursor. Commit coalesced assistant chunks before SSE delivery, so replay can reconstruct a partial answer. Flush on a closed Markdown block, 2 KiB, or a 100 ms buffer age, whichever comes first. Flush pending text before terminal and approval/tool boundary events. On reconnect, read from MySQL after that cursor. A snapshot plus replay must not leave a gap. Events use a global cursor. The public endpoint is `/api/sessions/{id}/events?after={cursor}`.
 
 When the user asks, compute the current diff from Git and the workspace files. Include staged and unstaged changes, and list untracked files separately. A local diff can include edits the user made before the run or during it. Do not label every such change as the agent's work.
 
