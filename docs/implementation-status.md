@@ -13,6 +13,6 @@ Status date: 2026-10-25.
 | Frontend | Not implemented | No frontend source |
 | Docker deployment | Not implemented | No Compose configuration |
 | Unit and integration tests | Not implemented or run | [Verification plan](verification.md) only |
-| DeepSeek smoke | Not run | No model requests made for this documentation work |
+| DeepSeek smoke | Not run | No model requests have been made |
 
-Update this page with real file links, package versions, commands, and results as each part is implemented. Keep planned behavior in the guides separate from observed behavior here.
+When a part is implemented, add the real file links, package versions, commands, and results here. Keep planned behavior in the guides. Record observed behavior on this page.

@@ -1,6 +1,6 @@
 # System Diagrams
 
-These diagrams describe planned behavior. They do not document an implemented protocol.
+These diagrams show planned behavior. They are not a record of an implemented protocol.
 
 | Diagram | Editable source | Preview |
 | --- | --- | --- |
@@ -8,8 +8,8 @@ These diagrams describe planned behavior. They do not document an implemented pr
 | CLI agent loop | [Excalidraw](cli-agent-loop.excalidraw) | [PNG](cli-agent-loop.png) |
 | Execution and recovery | [Excalidraw](execution.excalidraw) | [PNG](execution.png) |
 
-The architecture diagram separates service state from sandbox files. The execution diagram shows where approval, tool effects, and receipts occur. Log examples are proposed application labels, not names of framework events.
+The architecture diagram separates service state from sandbox files. The execution diagram shows where approval, tool effects, and receipts occur. Log examples are proposed application labels, not framework event names.
 
-Open an `.excalidraw` file in Excalidraw to edit it. Render its PNG after each change and inspect the result. Commit source and preview together. Keep labels consistent with the specification.
+Open an `.excalidraw` file in Excalidraw to edit it. Render the PNG after each change and look at the result. Commit the source and the preview together. Keep labels consistent with the specification.
 
-The visual method follows [coleam00/excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill). Sources are editable scene files; no third-party skill code is vendored in this repository.
+The visual method follows [coleam00/excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill). Sources are editable scene files. No third-party skill code is vendored in this repository.

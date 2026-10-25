@@ -1,12 +1,12 @@
 # Documentation Review
 
-Review date: 2026-10-25. Scope: documentation and editable diagrams only.
+Review date: 2026-10-25. Scope: documentation and editable diagrams only. Wording was revised the same day. Requirements were left unchanged.
 
 ## Result
 
-The guides cover the confirmed product decisions. No unresolved requirement conflict was found in the manual review. This result does not validate runtime behavior. Framework APIs, recovery hooks, and the proposed service layout still need executable verification.
+The guides cover the confirmed product decisions. The manual review found no unresolved requirement conflict. Runtime behavior still needs executable checks, including framework APIs, recovery hooks, and the proposed service layout.
 
-The repository contains no application implementation. The README and status page say this explicitly. Examples of application log labels and source directories are marked as proposed.
+The repository has no application code. The README and the status page say so. Examples of application log labels and source directories are marked as proposals.
 
 ## Requirement coverage
 
@@ -29,35 +29,35 @@ The repository contains no application implementation. The README and status pag
 
 ## Corrections made
 
-- Clarified that stopping a container also ends stdio MCP processes and connections.
-- Required actual Docker network changes before reporting an updated network permission.
-- Clarified that Continue resumes queued work, not a cancelled run.
-- Kept queued messages when steer changes the active run.
-- Distinguished stopped display text from completed assistant context.
-- Separated native framework event storage from unnecessary application diff copies.
-- Marked package versions, public-hook selection, source layout, and protocols as unverified.
-- Added a status page so design claims cannot serve as implementation evidence.
+- Stopping a container also ends stdio MCP processes and connections.
+- Report an updated network permission only after the Docker network has actually changed.
+- Continue resumes queued work. It does not restart a cancelled run.
+- Queued messages stay in place when steer changes the active run.
+- Stopped display text is separate from a completed assistant message in model context.
+- Native framework event storage is separate from extra application copies of a derived diff.
+- Package versions, public-hook selection, source layout, and protocols are still unverified.
+- A status page records evidence, so a design guide cannot stand in for an implementation.
 
-These details clarify the agreed behavior. They do not authorize feature implementation before specification approval.
+These points record the agreed behavior. Feature implementation still waits for specification approval.
 
-## Writing review
+## Writing
 
-Used short sentences, active voice, and established technical terms. Removed promotional descriptions and avoided invented names. The style follows the requested ASD-STE100-inspired target; it is not a certified vocabulary or compliance assessment. Sentence-length checks supplement manual review and do not establish a percentage score.
+The guides use direct technical English: active voice, the terms in the index, and a short sentence when a short sentence is clearer. Promotional language and invented names are left out. ASD-STE100 is a readability aim, not a certified word list. This page is not a compliance score.
 
 ## Diagram review
 
-All three Excalidraw sources were rendered with the official Excalidraw library and inspected as PNG images. The architecture heading was moved to avoid crossing connector lines. The Redis-to-API hint path was added. The CLI diagram was added to locate model calls, dispatch, HITL, permission checks, receipts, checkpoints, and recovery. Sources and previews describe the same design.
+All three Excalidraw sources were rendered with the official Excalidraw library and checked as PNG images. The architecture heading was moved so it no longer crosses connector lines. The Redis-to-API hint path was added. The CLI diagram was added to show model calls, dispatch, HITL, permission checks, receipts, checkpoints, and recovery. Sources and previews describe the same design.
 
-The installed skill renderer could not finish its CDN imports. A temporary local bundle of Excalidraw 0.18.0 and Playwright produced the previews. Rendering dependencies stayed outside the repository; they are not agent runtime dependencies.
+The installed skill renderer could not finish its CDN imports. A temporary local bundle of Excalidraw 0.18.0 and Playwright produced the previews. Those rendering tools stayed outside the repository. They are not agent runtime dependencies.
 
 ## Checks
 
 Completed checks:
 
-- Validated 16 Markdown files and 74 local links and anchors.
+- Validated 16 Markdown files and 74 local links and anchors. After the wording pass, the same files, links, and heading anchors still resolve.
 - Parsed three Excalidraw scenes and checked unique IDs and binding references.
 - Rendered and visually inspected three PNG previews.
-- Checked English prose for non-ASCII text and sentences over 35 words; neither check found an issue.
+- Checked the earlier draft for non-ASCII text and for sentences over 35 words. That draft had neither issue. The later wording pass prefers a clear sentence over a fixed word cap.
 - Compared guides against the specification and the requirement coverage table.
 
-Staged whitespace and the final file list are checked immediately before commit. Runtime tests are not applicable to this documentation-only change and have not been reported as passing.
+Check staged whitespace and the final file list immediately before commit. This change is documentation only. Runtime tests were not run, and they are not reported as passing.

@@ -1,6 +1,6 @@
 # Design Decisions
 
-Status: agreed product choices; implementation details remain subject to framework verification.
+Status: agreed product choices. Implementation details still depend on framework verification.
 
 | Decision | Reason | Cost or limit |
 | --- | --- | --- |
@@ -22,8 +22,8 @@ Status: agreed product choices; implementation details remain subject to framewo
 | Stop cancels and pauses the queue | Stop must not immediately launch another run | Users must select Continue |
 | Default mutations to approval | Expose execution decisions for learning | More prompts unless users configure auto-allow rules |
 | Reuse native checkpoint storage | Avoid a second recovery engine | Application controls still need persistence |
-| Pause unknown effects | Avoid blind repetition of external effects | Users may need to inspect the workspace |
-| Compute diff on demand | Current changes are derived from files and Git | No historical per-edit diff replay |
+| Pause unknown effects | Avoid repeating an external effect with an unknown result | Users may need to inspect the workspace |
+| Compute diff on demand | Current changes come from files and Git | No historical per-edit diff replay |
 | Compact model context, keep records | Limit context without deleting conversation evidence | Summaries may omit detail |
 | Trust repository extensions explicitly | A repository must not activate its own programs | Configuration changes can require new approval |
 | Support stdio and HTTP MCP | Cover local programs and independent services | Two transport lifecycles require tests |
@@ -31,8 +31,8 @@ Status: agreed product choices; implementation details remain subject to framewo
 
 ## Technology defaults awaiting verification
 
-Use Python with uv, FastAPI, React/TypeScript with Vite, and Docker Compose. Select compatible Pydantic AI and Harness versions after executable probes. Use a framework local file or SQLite backend; do not choose a custom local checkpoint schema first.
+Use Python with uv, FastAPI, React/TypeScript with Vite, and Docker Compose. Select compatible Pydantic AI and Harness versions after executable probes. Use a framework local file or SQLite backend. Do not design a custom local checkpoint schema first.
 
 ## How decisions change
 
-Update this record and the specification together. Explain the changed condition and its effect. Keep abandoned experiments out of the main guides unless they explain a current limit.
+Update this record and the specification together. State what changed and what that change affects. Leave abandoned experiments out of the main guides unless they explain a current limit.

@@ -1,6 +1,6 @@
 # Documentation
 
-These documents describe the planned system. No runtime behavior has been implemented or tested. Read the [implementation status](implementation-status.md) before using a guide as evidence.
+These documents describe the system we plan to build. None of it has been implemented or tested. See the [implementation status](implementation-status.md) for what exists in the repository today.
 
 ## Reading order
 
@@ -20,11 +20,11 @@ These documents describe the planned system. No runtime behavior has been implem
 
 ## Diagrams
 
-The [CLI agent-loop diagram](diagrams/cli-agent-loop.excalidraw) and its [preview](diagrams/cli-agent-loop.png) locate the terminal runtime components.
+The [CLI agent-loop diagram](diagrams/cli-agent-loop.excalidraw) and its [preview](diagrams/cli-agent-loop.png) show where the terminal runtime components sit.
 
-The [system architecture](diagrams/system-architecture.excalidraw) is editable in Excalidraw. Its [PNG preview](diagrams/system-architecture.png) is embedded in the architecture guide. The [execution diagram](diagrams/execution.excalidraw) and [preview](diagrams/execution.png) show approval and recovery boundaries.
+The [system architecture](diagrams/system-architecture.excalidraw) is editable in Excalidraw. Its [PNG preview](diagrams/system-architecture.png) is embedded in the architecture guide. The [execution diagram](diagrams/execution.excalidraw) and [preview](diagrams/execution.png) show the approval and recovery boundaries.
 
-Diagram labels describe the design. They do not establish an implemented HTTP route or event schema. See the [diagram notes](diagrams/README.md).
+Diagram labels describe the design. They are not implemented HTTP routes or event schemas. See the [diagram notes](diagrams/README.md).
 
 ## Terms
 
@@ -40,4 +40,4 @@ Diagram labels describe the design. They do not establish an implemented HTTP ro
 | Workspace | The files that tools can read or change |
 | Event | A record used to reconstruct execution or display state |
 
-A session is not a container. A checkpoint is not a file backup. An event is not proof that an external operation and its receipt committed together.
+A session is the conversation and its controls. The container is a separate sandbox resource. A checkpoint saves an execution boundary. It does not copy the workspace files. An event records state for recovery or display. Saving the event and committing the external operation plus its receipt are separate steps.

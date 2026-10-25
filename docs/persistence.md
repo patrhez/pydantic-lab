@@ -1,6 +1,6 @@
 # Persistence, Recovery, and Logs
 
-Status: planned. Framework behavior is documented upstream; this lab has no tested storage adapter yet.
+Status: planned. Upstream documents the framework behavior. This lab does not yet have a storage adapter that has been tested.
 
 ## Three kinds of state
 
@@ -10,13 +10,13 @@ Status: planned. Framework behavior is documented upstream; this lab has no test
 | Sessions, controls, approvals, bindings | Small local application store where needed | MySQL application records |
 | Workspace files | Real repository bind mount | Session volume |
 
-StepPersistence saves message snapshots at settled steps and records events and tool effects. It does not capture every application field or the workspace filesystem. Select a native local backend after the API probe. Reuse framework receipts where possible rather than duplicating their meaning. See [Step Persistence](https://pydantic.dev/docs/ai/harness/step-persistence/).
+StepPersistence saves message snapshots at settled steps and records events and tool effects. It does not store every application field, and it does not snapshot the workspace files. Choose a native local backend after the API probe. Reuse framework receipts where they already record the outcome. Do not store the same fact again under another name. See [Step Persistence](https://pydantic.dev/docs/ai/harness/step-persistence/).
 
 ## Required recovery data
 
-Keep the logical run identity, schema and framework versions, selected agent configuration, latest valid checkpoint, pending approvals, control-message consumption, scheduling pause, and sandbox binding. Preserve original conversation records independently of compressed model context.
+Keep the logical run identity, the schema and framework versions, the selected agent configuration, the latest valid checkpoint, pending approvals, control-message consumption, the scheduling pause, and the sandbox binding. Keep the original conversation records even when the model context has been compressed.
 
-Keep a policy revision and extension configuration identity with the pending operation. If a configuration changes, reconcile old approvals and bindings before continuation. A stable logical run may span framework continuation calls; map both identities explicitly.
+Store a policy revision and an extension configuration identity with the pending operation. If a configuration changes, reconcile the old approvals and bindings before continuing. A stable logical run can cover several framework continuation calls. Map the two identities explicitly.
 
 ## Restart rules
 
@@ -29,13 +29,13 @@ Keep a policy revision and extension configuration identity with the pending ope
 | Effect completed, model-facing result missing | Reconcile the result before continuation |
 | Mutation or command started, outcome missing | Mark `outcome_unknown` and pause |
 
-A database transaction cannot commit a shell effect and its receipt together. A process can die after changing a file and before recording completion. Returning to an older checkpoint does not undo that file change. Inspect uncertain operations before deciding to retry or continue.
+A database transaction cannot commit a shell effect and its receipt together. The process can exit after it changes a file and before it records completion. Returning to an older checkpoint does not undo that file change. Inspect an uncertain operation before choosing to retry or continue.
 
-Prevent old execution attempts from writing after ownership changes. Release one runs one agent-service instance; restart recovery still requires an ownership check and proof that previous commands cannot continue unnoticed. No automatic exactly-once guarantee is made.
+Stop an old execution attempt from writing after ownership has moved. Release one runs a single agent-service instance. Restart recovery still needs an ownership check, and proof that the previous commands cannot keep running unnoticed. There is no automatic exactly-once guarantee.
 
 ## Learning logs
 
-Use structured records and readable console output. Correlate session, logical run, framework run, tool call, approval, and checkpoint IDs. Include time, event kind, state, decision source, and duration where applicable.
+Use structured records and readable console output. Correlate the session, logical run, framework run, tool call, approval, and checkpoint IDs. Include the time, event kind, state, decision source, and duration when they apply.
 
 These are proposed application log labels:
 
@@ -48,12 +48,12 @@ checkpoint.saved     boundary=settled_step
 checkpoint.loaded    reason=resume
 ```
 
-Log queue acceptance, steer consumption, expired approvals, Stop, Continue, sandbox lifecycle, trust changes, and compaction. Keep credentials out of logs. Large command output may need truncation; the displayed summary must say when output is incomplete.
+Log queue acceptance, steer consumption, expired approvals, Stop, Continue, sandbox lifecycle, trust changes, and compaction. Keep credentials out of logs. Large command output may need truncation. When the displayed summary is incomplete, say so.
 
 ## Browser replay and diff
 
-Commit server display events before publishing Redis hints. Give events an ordered cursor. Reconnection reads from MySQL after that cursor; a snapshot and replay must not leave a gap. The exact cursor scope and endpoint contract will be defined with implementation tests.
+Commit server display events before publishing Redis hints. Give each event an ordered cursor. On reconnect, read from MySQL after that cursor. A snapshot plus replay must not leave a gap. The exact cursor scope and endpoint contract will be fixed when the implementation tests are written.
 
-Compute current diff from Git and workspace files when requested. Include staged and unstaged changes and list untracked files separately. A local diff can include user changes made before or during the run. Do not label all such changes as agent-authored.
+When the user asks, compute the current diff from Git and the workspace files. Include staged and unstaged changes, and list untracked files separately. A local diff can include edits the user made before the run or during it. Do not label every such change as the agent's work.
 
-Do not add a separate historical diff store. Pending edit arguments and native snapshots can contain file text. If framework events contain diff data, keep the original framework recovery contract intact while omitting unnecessary diff copies from application display records.
+Do not add a separate store of historical diffs. Pending edit arguments and native snapshots can contain file text. If a framework event already contains diff data, keep that data for the framework's recovery contract. Leave the extra copy out of application display records.
