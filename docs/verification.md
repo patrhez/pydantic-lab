@@ -10,7 +10,7 @@ Status: required checks, not completed results. There is no executable applicati
 | Framework integration | Real Agent/tool loop with deterministic models; approval, continuation, and compaction |
 | Container integration | Actual Docker execution, local bind mounts, session volumes, limits, and network settings |
 | Service integration | MySQL transactions, Redis hint loss, SSE replay, and process restart |
-| Browser integration | Session list, streaming, approval, queue/steer, Stop/Continue, refresh, and diff |
+| Browser integration | Session list, streaming, approval, queue/steer, Stop/Continue, refresh, replay, sandbox controls, trust, and diff |
 | Live smoke | Bounded DeepSeek requests using the configured endpoint |
 
 Use temporary repositories and disposable test resources. The default test run must not call paid model APIs. Tests must check observable behavior. They must not pass by mirroring the helper they claim to test.
@@ -31,6 +31,18 @@ Use temporary repositories and disposable test resources. The default test run m
 12. Change a trusted MCP config or a skill support file. Confirm trust has to be granted again.
 13. Compact a conversation that contains many tool calls. Confirm a valid protocol, the original records, and restart behavior.
 14. Rebuild only the frontend and API. Confirm the active agent run and its sandbox continue.
+15. Refresh during streamed output. Confirm committed chunks replay in order, without duplicate text or a cursor gap.
+16. Double-click Allow Once and race Stop with Steer. Confirm one accepted decision, expired stale controls, and no duplicate execution.
+17. Try to delete a session while it is running or awaiting approval. Confirm Delete is disabled until Stop completes.
+18. Change sandbox networking and trust while a run is active. Confirm the controls are disabled with reasons, then apply and verify changes between runs.
+19. Run the CLI in a narrow no-color terminal and in noninteractive mode. Confirm readable states, status `3` on required approval, and a usable resume path.
+20. Render the CLI, Web, unknown-outcome, and narrow-screen states. Confirm they meet the interaction acceptance criteria and shared terminology.
+
+21. Request an initialization approval. Confirm the progress view permits a decision while chat is disabled, and restores the request after refresh.
+22. Deliver a new approval while typing. Confirm focus and draft remain unchanged and Enter cannot approve it.
+23. Pause provider output below 2 KiB with an open Markdown block. Confirm a 100 ms flush and ordered replay of residual text before terminal events.
+
+The detailed interface checks live in [CLI interactions](cli-interactions.md#acceptance-criteria), [Web interactions](web-interactions.md#acceptance-criteria), and [Visual design](visual-design.md#acceptance-criteria).
 
 ## Live provider configuration
 

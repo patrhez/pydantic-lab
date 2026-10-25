@@ -14,7 +14,7 @@ Use ASD-STE100-inspired language for most prose. This is a writing target, not a
 
 The [specification](docs/specification.md) defines requirements. Learning guides explain those requirements. Verified code and tests establish implemented behavior. A guide must not claim that a proposed design already works.
 
-When code changes, update the affected guide and the [implementation status](docs/implementation-status.md) in the same commit. If a requirement changes, update the specification and [decision record](docs/decisions.md). Update both the Excalidraw source and its rendered image when a diagram changes.
+When code changes, update the affected guide and the [implementation status](docs/implementation-status.md) in the same commit. If a requirement changes, update the specification and [decision record](docs/decisions.md). Update both the Excalidraw or SVG source and its rendered image when a diagram or mockup changes.
 
 Before a documentation commit, check local links, requirement coverage, code references, diagrams, spelling, and whitespace. Review semantics manually; a link checker cannot prove design consistency.
 

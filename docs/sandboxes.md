@@ -25,13 +25,13 @@ MySQL maps the session to a stable logical sandbox ID, a container reference, a 
 
 Stop an idle container and keep its volume. Start the container again when it is needed. If the container is missing, create a replacement that uses the same volume and the recorded configuration. Changes in the container layer can disappear. Put the base tools in the image, and make dependency setup repeatable.
 
-Stopping the container also ends sandbox processes and stdio MCP connections. Close the client transports, release their handles, and reconnect after the container starts again. Do not stop a container while an operation is executing. A session that is waiting for approval counts as idle only when no operation and no transport still needs the container.
+Stopping the container also ends sandbox processes and stdio MCP connections. Close the client transports, release their handles, and reconnect after the container starts again. Do not stop a container while an operation is executing. A session that is waiting for approval is idle when no operation is executing; close any open transports as part of the idle stop.
 
-Session deletion must stop scheduling before it cleans up resources. Record cleanup that did not finish, so a later retry can finish it. Tell the user that deleting the workspace cannot be undone.
+Session deletion must stop scheduling before it cleans up resources. While a run is active or waiting for approval, require Stop before Delete becomes available. Record cleanup that did not finish, so a later retry can finish it. Tell the user that deleting the workspace cannot be undone.
 
 ## Network and control access
 
-Use the network for approved initialization, then switch to offline execution. A database flag is not a Docker network change. The sandbox manager must apply the network setting, reconnect transports, and verify the setting before a tool runs. Recreate the container if the change requires it, and keep the workspace volume.
+Use the network for approved initialization, then switch to offline execution. A database flag is not a Docker network change. Allow a user-requested network change only when no run is active and no approval is pending. The sandbox manager must apply the network setting, reconnect transports, and verify the setting before a tool runs. Recreate the container if the change requires it, and keep the workspace volume.
 
 Remote HTTP MCP requests run from the agent service under a separate destination policy. The tool container's offline network does not constrain them. The UI must show these two settings separately.
 

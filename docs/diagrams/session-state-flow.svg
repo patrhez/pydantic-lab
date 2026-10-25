@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920" role="img" aria-labelledby="session-state-flow-title session-state-flow-desc">
+  <title id="session-state-flow-title">Planned run control state flow</title>
+  <desc id="session-state-flow-desc">Session execution states showing approval, steer, Stop, final completion, and known failure. Continue starts the next queued run instead of reviving the cancelled run.</desc>
+  <defs>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+      .mono { font-family: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace; }
+      .eyebrow { font-size: 12px; font-weight: 750; letter-spacing: 1.8px; }
+      .title { font-size: 28px; font-weight: 700; }
+      .node { font-size: 16px; font-weight: 700; }
+      .sub { font-size: 12px; font-weight: 500; }
+      .label { font-size: 11px; font-weight: 700; letter-spacing: 0.7px; }
+    </style>
+    <marker id="arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0 0 L9 4 L0 8 Z" fill="#5B6675"/>
+    </marker>
+    <marker id="arrowAccent" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0 0 L9 4 L0 8 Z" fill="#4F46E5"/>
+    </marker>
+    <marker id="arrowWarning" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0 0 L9 4 L0 8 Z" fill="#A15C07"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="920" fill="#F7F8FA"/>
+  <text x="64" y="52" class="sans eyebrow" fill="#4F46E5">PLANNED INTERACTION FLOW · NOT IMPLEMENTED</text>
+  <text x="64" y="88" class="sans title" fill="#182230">One active run. Explicit controls.</text>
+  <text x="64" y="118" class="sans sub" fill="#5B6675">Queue creates a later run. Steer changes the current logical run only at a safe boundary.</text>
+
+  <!-- Connectors: draw before nodes -->
+  <path d="M264 368 H328 Q344 368 344 352 V196 Q344 180 360 180 H392" fill="none" stroke="#5B6675" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="292" y="264" width="64" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="324" y="278" text-anchor="middle" class="sans label" fill="#5B6675">SEND</text>
+
+  <path d="M640 180 H792" fill="none" stroke="#A15C07" stroke-width="2" marker-end="url(#arrowWarning)"/>
+  <rect x="664" y="150" width="124" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="726" y="164" text-anchor="middle" class="sans label" fill="#A15C07">NEEDS APPROVAL</text>
+
+  <path d="M800 224 H648" fill="none" stroke="#16794C" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="668" y="194" width="116" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="726" y="208" text-anchor="middle" class="sans label" fill="#16794C">ALLOW / REJECT</text>
+
+  <path d="M600 140 V126 H1164 Q1180 126 1180 142 V180 Q1180 196 1196 196 H1232" fill="none" stroke="#16794C" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="1116" y="166" width="72" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="1152" y="180" text-anchor="middle" class="sans label" fill="#16794C">FINAL</text>
+
+  <path d="M940 252 V492" fill="none" stroke="#4F46E5" stroke-width="2" marker-end="url(#arrowAccent)"/>
+  <rect x="888" y="360" width="64" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="920" y="374" text-anchor="middle" class="sans label" fill="#4F46E5">STEER</text>
+
+  <path d="M800 572 H720 Q704 572 704 556 V268 Q704 252 688 252 H648" fill="none" stroke="#4F46E5" stroke-width="2" marker-end="url(#arrowAccent)"/>
+  <rect x="596" y="300" width="88" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="640" y="314" text-anchor="middle" class="sans label" fill="#4F46E5">RE-PLAN</text>
+
+  <path d="M480 252 V512" fill="none" stroke="#B42318" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="428" y="360" width="52" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="454" y="374" text-anchor="middle" class="sans label" fill="#B42318">STOP</text>
+
+  <path d="M840 252 V424 Q840 440 824 440 H656 Q640 440 640 456 V512" fill="none" stroke="#B42318" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="696" y="410" width="52" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="722" y="424" text-anchor="middle" class="sans label" fill="#B42318">STOP</text>
+
+  <path d="M580 520 V260" fill="none" stroke="#16794C" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="494" y="382" width="172" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="580" y="396" text-anchor="middle" class="sans label" fill="#16794C">CONTINUE: NEXT RUN</text>
+
+  <path d="M520 140 V110 Q520 96 536 96 H1484 Q1500 96 1500 112 V352 Q1500 368 1484 368 H1468" fill="none" stroke="#B42318" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="1352" y="66" width="116" height="20" rx="3" fill="#F7F8FA"/>
+  <text x="1410" y="80" text-anchor="middle" class="sans label" fill="#B42318">KNOWN ERROR</text>
+
+  <!-- Nodes -->
+  <rect x="64" y="320" width="200" height="96" rx="8" fill="#FFFFFF" stroke="#D8DEE6" stroke-width="2"/>
+  <text x="164" y="358" text-anchor="middle" class="sans node" fill="#182230">Ready</text>
+  <text x="164" y="384" text-anchor="middle" class="sans sub" fill="#5B6675">No active run</text>
+
+  <rect x="400" y="140" width="240" height="112" rx="8" fill="#EEF0FF" stroke="#4F46E5" stroke-width="2"/>
+  <text x="520" y="184" text-anchor="middle" class="sans node" fill="#182230">Running</text>
+  <text x="520" y="212" text-anchor="middle" class="sans sub" fill="#5B6675">One logical run owns the session</text>
+
+  <rect x="800" y="140" width="280" height="112" rx="8" fill="#FFF8ED" stroke="#A15C07" stroke-width="2"/>
+  <text x="940" y="184" text-anchor="middle" class="sans node" fill="#182230">Awaiting approval</text>
+  <text x="940" y="212" text-anchor="middle" class="sans sub" fill="#5B6675">Exact operation is persisted</text>
+
+  <rect x="1240" y="140" width="220" height="96" rx="8" fill="#EDF9F2" stroke="#16794C" stroke-width="2"/>
+  <text x="1350" y="178" text-anchor="middle" class="sans node" fill="#182230">Completed</text>
+  <text x="1350" y="204" text-anchor="middle" class="sans sub" fill="#5B6675">Queue may start next</text>
+
+  <rect x="400" y="520" width="240" height="112" rx="8" fill="#F0F3F6" stroke="#5B6675" stroke-width="2"/>
+  <text x="520" y="564" text-anchor="middle" class="sans node" fill="#182230">Stopped</text>
+  <text x="520" y="592" text-anchor="middle" class="sans sub" fill="#5B6675">Run cancelled · queue paused</text>
+
+  <rect x="800" y="500" width="240" height="96" rx="8" fill="#EEF0FF" stroke="#4F46E5" stroke-width="2"/>
+  <text x="920" y="538" text-anchor="middle" class="sans node" fill="#182230">Re-planning</text>
+  <text x="920" y="564" text-anchor="middle" class="sans sub" fill="#5B6675">Old unexecuted approvals expire</text>
+
+  <rect x="1240" y="320" width="220" height="96" rx="8" fill="#FFF0EE" stroke="#B42318" stroke-width="2"/>
+  <text x="1350" y="358" text-anchor="middle" class="sans node" fill="#182230">Failed</text>
+  <text x="1350" y="384" text-anchor="middle" class="sans sub" fill="#5B6675">Known terminal error</text>
+
+  <!-- Legend -->
+  <line x1="64" y1="760" x2="1536" y2="760" stroke="#D8DEE6"/>
+  <text x="64" y="792" class="sans label" fill="#5B6675">CONTROL SEMANTICS</text>
+  <text x="64" y="822" class="sans sub" fill="#5B6675">Stop preserves queued input and pauses scheduling. Continue resumes queued work; it never revives a cancelled run.</text>
+  <text x="64" y="850" class="sans sub" fill="#5B6675">Approval has no time expiry. Steer, Stop, or a policy/configuration change invalidates it.</text>
+  <text x="64" y="878" class="sans sub" fill="#5B6675">Recovery from outcome_unknown is specified in the execution and interface guides.</text>
+</svg>

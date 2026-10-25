@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="web-workspace-title web-workspace-desc">
+  <title id="web-workspace-title">Planned Web workspace mockup</title>
+  <desc id="web-workspace-desc">A desktop web coding-agent workspace with a session rail, streaming chat, approval card, queue and steer controls, and a current workspace diff panel.</desc>
+  <defs>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+      .mono { font-family: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace; }
+      .eyebrow { font-size: 11px; font-weight: 750; letter-spacing: 1.5px; }
+      .title { font-size: 22px; font-weight: 700; }
+      .section { font-size: 15px; font-weight: 700; }
+      .body { font-size: 14px; font-weight: 500; }
+      .small { font-size: 12px; font-weight: 550; }
+      .tiny { font-size: 10px; font-weight: 700; letter-spacing: 0.65px; }
+      .code { font-size: 12px; font-weight: 500; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1100" fill="#F7F8FA"/>
+  <text x="32" y="34" class="sans eyebrow" fill="#4F46E5">PLANNED WEB MOCKUP · NOT IMPLEMENTED</text>
+
+  <!-- Session rail -->
+  <rect x="0" y="52" width="280" height="1048" fill="#FFFFFF"/>
+  <line x1="280" y1="52" x2="280" y2="1100" stroke="#D8DEE6"/>
+  <text x="28" y="96" class="sans title" fill="#182230">Pydantic Lab</text>
+  <rect x="28" y="120" width="224" height="40" rx="6" fill="#4F46E5"/>
+  <text x="140" y="145" text-anchor="middle" class="sans body" fill="#FFFFFF">New session</text>
+
+  <text x="28" y="194" class="sans tiny" fill="#5B6675">SESSIONS</text>
+  <rect x="16" y="208" width="248" height="76" rx="8" fill="#EEF0FF" stroke="#4F46E5"/>
+  <text x="36" y="234" class="sans section" fill="#182230">pydantic-lab</text>
+  <circle cx="40" cy="260" r="5" fill="#A15C07"/>
+  <text x="54" y="265" class="sans small" fill="#A15C07">Awaiting approval · queue 1</text>
+
+  <rect x="16" y="296" width="248" height="68" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="36" y="322" class="sans body" fill="#182230">fastapi-starter</text>
+  <circle cx="40" cy="346" r="5" fill="#2563EB"/>
+  <text x="54" y="351" class="sans small" fill="#2563EB">Running</text>
+
+  <rect x="16" y="376" width="248" height="68" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="36" y="402" class="sans body" fill="#182230">docs-site</text>
+  <circle cx="40" cy="426" r="5" fill="#5B6675"/>
+  <text x="54" y="431" class="sans small" fill="#5B6675">Stopped · queue 2</text>
+
+  <rect x="16" y="456" width="248" height="68" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="36" y="482" class="sans body" fill="#182230">inventory-api</text>
+  <circle cx="40" cy="506" r="5" fill="#7C3AED"/>
+  <text x="54" y="511" class="sans small" fill="#7C3AED">Outcome unknown</text>
+
+  <rect x="16" y="1016" width="248" height="48" rx="8" fill="#F0F3F6"/>
+  <circle cx="40" cy="1040" r="5" fill="#16794C"/>
+  <text x="54" y="1045" class="sans small" fill="#16794C">Live · MySQL replay ready</text>
+
+  <!-- Main workspace -->
+  <rect x="280" y="52" width="860" height="1048" fill="#F7F8FA"/>
+  <rect x="280" y="52" width="860" height="88" fill="#FFFFFF"/>
+  <line x1="280" y1="140" x2="1140" y2="140" stroke="#D8DEE6"/>
+  <text x="312" y="88" class="sans title" fill="#182230">pydantic-lab</text>
+  <text x="312" y="116" class="sans small" fill="#5B6675">main · resolved commit a1b2c3d · sandbox running</text>
+
+  <rect x="704" y="76" width="164" height="36" rx="6" fill="#F0F3F6" stroke="#D8DEE6"/>
+  <rect x="708" y="80" width="78" height="28" rx="5" fill="#EEF0FF" stroke="#4F46E5"/>
+  <text x="747" y="99" text-anchor="middle" class="sans small" fill="#4F46E5">Queue</text>
+  <text x="826" y="99" text-anchor="middle" class="sans small" fill="#5B6675">Steer</text>
+
+  <rect x="884" y="76" width="92" height="36" rx="6" fill="#FFFFFF" stroke="#B42318"/>
+  <text x="930" y="99" text-anchor="middle" class="sans body" fill="#B42318">Stop</text>
+  <rect x="988" y="76" width="116" height="36" rx="6" fill="#F0F3F6" stroke="#D8DEE6"/>
+  <text x="1046" y="99" text-anchor="middle" class="sans body" fill="#5B6675">Continue</text>
+
+  <!-- User queued message -->
+  <rect x="312" y="172" width="500" height="76" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="332" y="198" class="sans tiny" fill="#5B6675">YOU · QUEUED Q2</text>
+  <text x="332" y="224" class="sans body" fill="#182230">Add a small retry helper and cover the failure path.</text>
+
+  <!-- Assistant streaming -->
+  <rect x="312" y="272" width="764" height="156" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="332" y="300" class="sans tiny" fill="#4F46E5">ASSISTANT · STREAMING COMMITTED CHUNKS</text>
+  <text x="332" y="330" class="sans body" fill="#182230">I will keep the helper synchronous and make the retry</text>
+  <text x="332" y="356" class="sans body" fill="#182230">policy explicit at the call site. The existing tests show</text>
+  <text x="332" y="382" class="sans body" fill="#182230">one timeout path and one successful retry path.</text>
+  <rect x="332" y="400" width="180" height="12" rx="6" fill="#EEF0FF"/>
+
+  <!-- Tool trace -->
+  <rect x="312" y="452" width="764" height="112" rx="8" fill="#10141A"/>
+  <circle cx="340" cy="486" r="6" fill="#16794C"/>
+  <text x="358" y="491" class="sans body" fill="#E7EBF0">Shell · rg "retry" tests src</text>
+  <text x="358" y="517" class="mono code" fill="#9AA6B2">succeeded in 0.42s · receipt rc_118 · checkpoint ckpt_19</text>
+  <circle cx="340" cy="542" r="6" fill="#8B85FF"/>
+  <text x="358" y="547" class="sans body" fill="#E7EBF0">FileSystem · edit tests/test_retry.py</text>
+
+  <!-- Approval card -->
+  <rect x="312" y="588" width="764" height="272" rx="10" fill="#FFFFFF" stroke="#A15C07" stroke-width="2"/>
+  <rect x="312" y="588" width="764" height="8" rx="4" fill="#A15C07"/>
+  <text x="336" y="624" class="sans tiny" fill="#A15C07">AWAITING APPROVAL · A3</text>
+  <text x="336" y="654" class="sans title" fill="#182230">Allow this exact file edit?</text>
+  <text x="336" y="682" class="mono code" fill="#5B6675">edit_file · tests/test_retry.py · policy: default approval</text>
+
+  <rect x="336" y="704" width="500" height="92" rx="6" fill="#10141A"/>
+  <text x="356" y="732" class="mono code" fill="#FF9B8A">-    return call_api(payload)</text>
+  <text x="356" y="760" class="mono code" fill="#79D69A">+    return retry(call_api, payload, attempts=2)</text>
+  <text x="356" y="784" class="mono tiny" fill="#9AA6B2">PREVIEW · TARGET WILL BE CHECKED AGAIN</text>
+
+  <rect x="860" y="704" width="180" height="42" rx="6" fill="#4F46E5"/>
+  <text x="950" y="731" text-anchor="middle" class="sans body" fill="#FFFFFF">Allow Once</text>
+  <rect x="860" y="758" width="180" height="42" rx="6" fill="#FFFFFF" stroke="#5B6675"/>
+  <text x="950" y="785" text-anchor="middle" class="sans body" fill="#182230">Reject Once</text>
+  <text x="336" y="832" class="sans small" fill="#5B6675">Approval does not bypass denies or sandbox limits.</text>
+
+  <!-- Composer -->
+  <rect x="312" y="888" width="764" height="100" rx="10" fill="#FFFFFF" stroke="#4F46E5"/>
+  <text x="336" y="920" class="sans body" fill="#182230">Keep the helper synchronous and avoid a background task.</text>
+  <text x="336" y="962" class="sans small" fill="#5B6675">Queue · runs after the current run · Enter sends · Shift+Enter adds a line</text>
+  <rect x="984" y="928" width="68" height="36" rx="6" fill="#4F46E5"/>
+  <text x="1018" y="952" text-anchor="middle" class="sans body" fill="#FFFFFF">Send</text>
+
+  <text x="312" y="1028" class="sans small" fill="#5B6675">Stopped partial answers stay marked. Queue and approval state survive refresh.</text>
+
+  <!-- Inspector -->
+  <rect x="1140" y="52" width="460" height="1048" fill="#FFFFFF"/>
+  <line x1="1140" y1="52" x2="1140" y2="1100" stroke="#D8DEE6"/>
+  <text x="1172" y="96" class="sans title" fill="#182230">Inspector</text>
+  <text x="1172" y="124" class="sans small" fill="#5B6675">Committed execution state</text>
+
+  <rect x="1172" y="152" width="396" height="40" rx="8" fill="#F0F3F6"/>
+  <text x="1204" y="177" text-anchor="middle" class="sans small" fill="#5B6675">Trace</text>
+  <rect x="1240" y="156" width="80" height="32" rx="6" fill="#EEF0FF" stroke="#4F46E5"/>
+  <text x="1280" y="177" text-anchor="middle" class="sans small" fill="#4F46E5">Diff</text>
+  <text x="1372" y="177" text-anchor="middle" class="sans small" fill="#5B6675">Sandbox</text>
+  <text x="1492" y="177" text-anchor="middle" class="sans small" fill="#5B6675">Extensions</text>
+
+  <text x="1172" y="226" class="sans section" fill="#182230">Current workspace diff</text>
+  <text x="1172" y="250" class="sans small" fill="#5B6675">Includes user edits made before or during the run.</text>
+
+  <rect x="1172" y="276" width="396" height="56" rx="8" fill="#F0F3F6"/>
+  <text x="1192" y="300" class="sans tiny" fill="#5B6675">STAGED · 1 FILE</text>
+  <text x="1192" y="320" class="mono code" fill="#182230">src/retry.py  +42  -3</text>
+
+  <rect x="1172" y="348" width="396" height="296" rx="8" fill="#10141A"/>
+  <text x="1192" y="376" class="sans tiny" fill="#9AA6B2">UNSTAGED · tests/test_retry.py</text>
+  <text x="1192" y="408" class="mono code" fill="#E7EBF0">@@ -18,7 +18,11 @@</text>
+  <rect x="1184" y="424" width="372" height="28" fill="#3A1E24"/>
+  <text x="1192" y="443" class="mono code" fill="#FF9B8A">-    return call_api(payload)</text>
+  <rect x="1184" y="456" width="372" height="28" fill="#173522"/>
+  <text x="1192" y="475" class="mono code" fill="#79D69A">+    return retry(call_api, payload, attempts=2)</text>
+  <text x="1192" y="520" class="mono code" fill="#9AA6B2">+def test_retry_timeout():</text>
+  <text x="1192" y="548" class="mono code" fill="#9AA6B2">+    ...</text>
+  <text x="1192" y="612" class="mono tiny" fill="#9AA6B2">COLLAPSED AFTER 200 CHANGED LINES</text>
+
+  <rect x="1172" y="668" width="396" height="64" rx="8" fill="#F0F3F6"/>
+  <text x="1192" y="692" class="sans tiny" fill="#5B6675">UNTRACKED · 1 FILE</text>
+  <text x="1192" y="714" class="mono code" fill="#182230">docs/retry-notes.md</text>
+
+  <rect x="1172" y="760" width="396" height="132" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="1192" y="790" class="sans tiny" fill="#5B6675">SANDBOX SUMMARY</text>
+  <text x="1192" y="820" class="sans body" fill="#182230">Running · volume kept · network off</text>
+  <text x="1192" y="848" class="sans small" fill="#5B6675">Remote HTTP MCP uses a separate destination policy.</text>
+  <text x="1192" y="874" class="sans small" fill="#A15C07">Network changes are disabled while this run is active.</text>
+
+  <rect x="1172" y="920" width="396" height="104" rx="8" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="1192" y="950" class="sans tiny" fill="#5B6675">EXTENSIONS</text>
+  <circle cx="1198" cy="978" r="5" fill="#16794C"/>
+  <text x="1212" y="983" class="sans small" fill="#182230">Repository instructions · trusted</text>
+  <circle cx="1198" cy="1004" r="5" fill="#A15C07"/>
+  <text x="1212" y="1009" class="sans small" fill="#182230">MCP · changed · trust required</text>
+</svg>

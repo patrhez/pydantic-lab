@@ -6,6 +6,7 @@ Status date: 2026-10-25.
 | --- | --- | --- |
 | Repository | Git initialized | Repository metadata |
 | Requirements | Product choices recorded; specification awaits final review | [Specification](specification.md) |
+| Interaction design | Planned CLI, Web, and visual behavior specified | [CLI interactions](cli-interactions.md), [Web interactions](web-interactions.md), [Visual design](visual-design.md) |
 | Learning documents | Design guides and diagrams prepared | [Index](README.md) |
 | Framework packages | Not selected or installed here | No lockfile |
 | CLI and runtime | Not implemented | No application source |

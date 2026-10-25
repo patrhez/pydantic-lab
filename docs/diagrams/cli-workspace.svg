@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960" role="img" aria-labelledby="cli-workspace-title cli-workspace-desc">
+  <title id="cli-workspace-title">Planned CLI workspace mockup</title>
+  <desc id="cli-workspace-desc">A terminal interface showing a running agent, queued input, an approval card, tool trace, status line, and composer.</desc>
+  <defs>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+      .mono { font-family: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace; }
+      .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.8px; }
+      .title { font-size: 22px; font-weight: 700; }
+      .body { font-size: 15px; font-weight: 500; }
+      .small { font-size: 13px; font-weight: 500; }
+      .code { font-size: 13px; font-weight: 500; }
+      .tiny { font-size: 11px; font-weight: 600; letter-spacing: 0.7px; }
+    </style>
+    <filter id="windowShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#10141A" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="960" fill="#F7F8FA"/>
+  <text x="80" y="40" class="sans eyebrow" fill="#4F46E5">PLANNED CLI MOCKUP · NOT IMPLEMENTED</text>
+
+  <rect x="80" y="64" width="1280" height="848" rx="16" fill="#10141A" filter="url(#windowShadow)"/>
+  <rect x="80" y="64" width="1280" height="848" rx="16" fill="none" stroke="#303944" stroke-width="1"/>
+
+  <circle cx="112" cy="96" r="6" fill="#FF5F57"/>
+  <circle cx="136" cy="96" r="6" fill="#FEBC2E"/>
+  <circle cx="160" cy="96" r="6" fill="#28C840"/>
+  <text x="196" y="101" class="sans small" fill="#9AA6B2">pydantic-lab — /repos/pydantic-lab</text>
+  <rect x="1136" y="80" width="184" height="32" rx="16" fill="#292B58" stroke="#8B85FF"/>
+  <text x="1228" y="101" text-anchor="middle" class="sans tiny" fill="#DCD9FF">MODE · QUEUE</text>
+
+  <line x1="104" y1="128" x2="1336" y2="128" stroke="#303944"/>
+
+  <text x="104" y="160" class="mono code" fill="#8B85FF">session 01J8Y3 · run R6 · sandbox running · context 18,420 est.</text>
+
+  <!-- User message -->
+  <rect x="104" y="184" width="560" height="72" rx="8" fill="#171D25" stroke="#303944"/>
+  <text x="124" y="212" class="sans tiny" fill="#9AA6B2">USER · QUEUED AS Q2</text>
+  <text x="124" y="238" class="sans body" fill="#E7EBF0">Add a small retry helper and cover the failure path.</text>
+
+  <!-- Assistant stream -->
+  <rect x="688" y="184" width="648" height="144" rx="8" fill="#10141A" stroke="#303944"/>
+  <text x="708" y="212" class="sans tiny" fill="#8B85FF">ASSISTANT · PARTIAL BEFORE TOOL CALL</text>
+  <text x="708" y="240" class="sans body" fill="#E7EBF0">I will keep the helper narrow and place the retry policy at</text>
+  <text x="708" y="266" class="sans body" fill="#E7EBF0">the call site. First I need to inspect the existing tests.</text>
+  <rect x="708" y="288" width="220" height="18" rx="4" fill="#1B222B"/>
+  <rect x="936" y="288" width="72" height="18" rx="4" fill="#292B58"/>
+  <text x="1024" y="302" class="mono tiny" fill="#9AA6B2">complete chunk</text>
+
+  <!-- Tool trace -->
+  <rect x="104" y="352" width="576" height="164" rx="8" fill="#171D25" stroke="#303944"/>
+  <circle cx="128" cy="382" r="5" fill="#28C840"/>
+  <text x="144" y="387" class="sans body" fill="#E7EBF0">Shell · rg "retry" tests src</text>
+  <text x="144" y="411" class="mono small" fill="#9AA6B2">succeeded in 0.42s · receipt rc_118 · 14 matches</text>
+  <line x1="128" y1="431" x2="656" y2="431" stroke="#303944"/>
+  <circle cx="128" cy="462" r="5" fill="#8B85FF"/>
+  <text x="144" y="467" class="sans body" fill="#E7EBF0">FileSystem · read tests/test_retry.py</text>
+  <text x="144" y="491" class="mono small" fill="#9AA6B2">succeeded · checkpoint ckpt_19 saved</text>
+
+  <!-- Approval card -->
+  <rect x="704" y="352" width="632" height="292" rx="10" fill="#1B222B" stroke="#A15C07" stroke-width="2"/>
+  <rect x="704" y="352" width="632" height="8" rx="4" fill="#A15C07"/>
+  <text x="728" y="390" class="sans tiny" fill="#F3C47A">AWAITING APPROVAL · A3</text>
+  <text x="728" y="420" class="sans title" fill="#FFFFFF">Edit tests/test_retry.py</text>
+  <text x="728" y="448" class="mono small" fill="#9AA6B2">operation: edit_file · policy: default · target rechecked after approval</text>
+
+  <rect x="728" y="472" width="584" height="96" rx="6" fill="#10141A" stroke="#303944"/>
+  <text x="748" y="500" class="mono code" fill="#FF9B8A">-    return call_api(payload)</text>
+  <text x="748" y="528" class="mono code" fill="#79D69A">+    return retry(call_api, payload, attempts=2)</text>
+  <text x="748" y="554" class="mono tiny" fill="#9AA6B2">preview generated from pending arguments + current content</text>
+
+  <rect x="728" y="588" width="148" height="40" rx="6" fill="#4F46E5"/>
+  <text x="802" y="613" text-anchor="middle" class="sans small" fill="#FFFFFF">Allow Once</text>
+  <rect x="892" y="588" width="148" height="40" rx="6" fill="#10141A" stroke="#5B6675"/>
+  <text x="966" y="613" text-anchor="middle" class="sans small" fill="#E7EBF0">Reject Once</text>
+  <text x="1064" y="613" class="mono small" fill="#9AA6B2">/allow A3 · /reject A3 · /diff</text>
+
+  <!-- Recovery notice -->
+  <rect x="104" y="548" width="576" height="96" rx="8" fill="#171D25" stroke="#303944"/>
+  <text x="124" y="576" class="sans tiny" fill="#79D69A">CHECKPOINT · RECEIPT</text>
+  <text x="124" y="604" class="mono small" fill="#E7EBF0">receipt rc_118 succeeded · checkpoint ckpt_19 settled</text>
+  <text x="124" y="628" class="mono tiny" fill="#9AA6B2">correlation: session 01J8Y3 · run R6 · call_42</text>
+
+  <!-- Steer notice -->
+  <rect x="104" y="668" width="576" height="80" rx="8" fill="#292B58" stroke="#8B85FF"/>
+  <text x="124" y="696" class="sans tiny" fill="#DCD9FF">QUEUE ACCEPTED</text>
+  <text x="124" y="722" class="sans small" fill="#E7EBF0">Q2 runs after the current run. Acceptance is not model consumption.</text>
+
+  <line x1="104" y1="776" x2="1336" y2="776" stroke="#303944"/>
+  <text x="104" y="808" class="mono small" fill="#9AA6B2">awaiting approval · queued: 1 · sandbox: running · Tab switches queue/steer · Ctrl+C Stop · Ctrl+C again Exit</text>
+
+  <rect x="104" y="828" width="1232" height="56" rx="8" fill="#171D25" stroke="#4F46E5"/>
+  <text x="128" y="862" class="mono body" fill="#E7EBF0">queue ▸ Keep the helper synchronous and avoid a background task.</text>
+  <text x="1252" y="862" class="mono small" fill="#8B85FF">Enter sends</text>
+</svg>

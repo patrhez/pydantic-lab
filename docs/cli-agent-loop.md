@@ -10,7 +10,7 @@ Open the [Excalidraw source](diagrams/cli-agent-loop.excalidraw) to inspect or e
 
 Pydantic AI owns the repeated model request, response handling, tool dispatch, and tool-result processing. The CLI controller supplies the model, capabilities, workspace, policy, and persistence adapters. The controller also handles input while the framework runs.
 
-Do not write a second model/tool loop around the framework. Use public hooks and continuation APIs for controls and recovery. One logical application run can span several native continuation calls. That is common when an approval is deferred.
+Do not write a second model/tool loop around the framework. Use public hooks and continuation APIs for controls and recovery. One logical application run can span several native continuation calls. That is common when an approval is deferred. The [CLI interaction specification](cli-interactions.md) defines the terminal controls and rendering behavior around this loop.
 
 ## Follow one tool call
 

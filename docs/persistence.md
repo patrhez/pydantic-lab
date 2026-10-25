@@ -27,7 +27,7 @@ Store a policy revision and an extension configuration identity with the pending
 | Settled checkpoint with complete results | Continue from that boundary |
 | Model request interrupted | Retry from the saved boundary; another provider charge is possible |
 | Effect completed, model-facing result missing | Reconcile the result before continuation |
-| Mutation or command started, outcome missing | Mark `outcome_unknown` and pause |
+| Mutation or command started, outcome missing | Mark `outcome_unknown`, pause, and offer Continue without retry, Retry once, or Abort |
 
 A database transaction cannot commit a shell effect and its receipt together. The process can exit after it changes a file and before it records completion. Returning to an older checkpoint does not undo that file change. Inspect an uncertain operation before choosing to retry or continue.
 
@@ -52,7 +52,7 @@ Log queue acceptance, steer consumption, expired approvals, Stop, Continue, sand
 
 ## Browser replay and diff
 
-Commit server display events before publishing Redis hints. Give each event an ordered cursor. On reconnect, read from MySQL after that cursor. A snapshot plus replay must not leave a gap. The exact cursor scope and endpoint contract will be fixed when the implementation tests are written.
+Commit server display events before publishing Redis hints. Give each event an ordered cursor. Commit coalesced assistant chunks before SSE delivery, so replay can reconstruct a partial answer. Flush on a closed Markdown block, 2 KiB, or a 100 ms buffer age, whichever comes first. Flush pending text before terminal and approval/tool boundary events. On reconnect, read from MySQL after that cursor. A snapshot plus replay must not leave a gap. The exact cursor scope and endpoint contract will be fixed when the implementation tests are written.
 
 When the user asks, compute the current diff from Git and the workspace files. Include staged and unstaged changes, and list untracked files separately. A local diff can include edits the user made before the run or during it. Do not label every such change as the agent's work.
 

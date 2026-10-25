@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="web-key-states-title web-key-states-desc">
+  <title id="web-key-states-title">Planned Web key states mockup</title>
+  <desc id="web-key-states-desc">Three planned web states: session creation failure, unknown-outcome recovery, and a narrow approval layout.</desc>
+  <defs>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+      .mono { font-family: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace; }
+      .eyebrow { font-size: 11px; font-weight: 750; letter-spacing: 1.5px; }
+      .title { font-size: 22px; font-weight: 700; }
+      .section { font-size: 15px; font-weight: 700; }
+      .body { font-size: 14px; font-weight: 500; }
+      .small { font-size: 12px; font-weight: 550; }
+      .tiny { font-size: 10px; font-weight: 700; letter-spacing: 0.65px; }
+      .code { font-size: 12px; font-weight: 500; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#F7F8FA"/>
+  <text x="40" y="42" class="sans eyebrow" fill="#4F46E5">PLANNED KEY STATES · NOT IMPLEMENTED</text>
+
+  <!-- Panel 1: session creation -->
+  <rect x="40" y="72" width="480" height="860" rx="12" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="72" y="112" class="sans title" fill="#182230">Create session</text>
+  <text x="72" y="140" class="sans small" fill="#5B6675">Public Git URL · branch or commit · explicit setup</text>
+
+  <text x="72" y="184" class="sans tiny" fill="#5B6675">GIT URL</text>
+  <rect x="72" y="196" width="416" height="44" rx="6" fill="#F7F8FA" stroke="#B42318"/>
+  <text x="88" y="223" class="mono code" fill="#182230">git://github.com/example/private</text>
+  <text x="72" y="266" class="sans small" fill="#B42318">Enter a public HTTP(S) Git URL.</text>
+
+  <text x="72" y="310" class="sans tiny" fill="#5B6675">BRANCH</text>
+  <rect x="72" y="322" width="196" height="44" rx="6" fill="#F7F8FA" stroke="#D8DEE6"/>
+  <text x="88" y="349" class="sans body" fill="#182230">main</text>
+  <text x="288" y="310" class="sans tiny" fill="#5B6675">COMMIT</text>
+  <rect x="288" y="322" width="200" height="44" rx="6" fill="#F0F3F6" stroke="#D8DEE6"/>
+  <text x="304" y="349" class="sans body" fill="#5B6675">Disabled</text>
+
+  <rect x="72" y="394" width="416" height="212" rx="8" fill="#F7F8FA"/>
+  <text x="92" y="424" class="sans tiny" fill="#5B6675">INITIALIZATION</text>
+  <circle cx="100" cy="454" r="5" fill="#16794C"/>
+  <text x="116" y="459" class="sans body" fill="#182230">Queued</text>
+  <circle cx="100" cy="490" r="5" fill="#16794C"/>
+  <text x="116" y="495" class="sans body" fill="#182230">Cloned at a1b2c3d</text>
+  <circle cx="100" cy="526" r="5" fill="#B42318"/>
+  <text x="116" y="531" class="sans body" fill="#B42318">Initialization failed</text>
+  <text x="92" y="566" class="mono code" fill="#5B6675">setup command exited 1 · safe log available</text>
+
+  <rect x="72" y="630" width="196" height="42" rx="6" fill="#FFFFFF" stroke="#B42318"/>
+  <text x="170" y="657" text-anchor="middle" class="sans body" fill="#B42318">Delete session</text>
+  <rect x="284" y="630" width="204" height="42" rx="6" fill="#4F46E5"/>
+  <text x="386" y="657" text-anchor="middle" class="sans body" fill="#FFFFFF">View safe log</text>
+
+  <rect x="72" y="724" width="416" height="124" rx="8" fill="#F0F3F6"/>
+  <text x="92" y="754" class="sans tiny" fill="#5B6675">SESSION ROW STATES</text>
+  <text x="92" y="786" class="sans body" fill="#182230">● Running · ◆ Awaiting approval</text>
+  <text x="92" y="816" class="sans body" fill="#182230">■ Stopped · ? Outcome unknown</text>
+  <text x="92" y="842" class="sans small" fill="#5B6675">Text labels remain when color is unavailable.</text>
+
+  <!-- Panel 2: outcome unknown -->
+  <rect x="560" y="72" width="480" height="860" rx="12" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <rect x="560" y="72" width="480" height="10" rx="5" fill="#A15C07"/>
+  <text x="592" y="118" class="sans eyebrow" fill="#A15C07">RECOVERY REQUIRED</text>
+  <text x="592" y="152" class="sans title" fill="#182230">Outcome unknown</text>
+  <text x="592" y="182" class="sans body" fill="#5B6675">A mutation started, but no receipt confirms its result.</text>
+
+  <rect x="592" y="214" width="416" height="188" rx="8" fill="#F7F8FA" stroke="#D8DEE6"/>
+  <text x="612" y="244" class="sans tiny" fill="#5B6675">OPERATION</text>
+  <text x="612" y="272" class="mono code" fill="#182230">edit_file · src/config.py</text>
+  <text x="612" y="304" class="mono code" fill="#5B6675">run R8 · call call_51 · started 14:02:11</text>
+  <text x="612" y="336" class="mono code" fill="#5B6675">latest checkpoint ckpt_22 · sandbox stopped</text>
+  <text x="612" y="372" class="sans small" fill="#A15C07">Inspect the workspace before choosing an action.</text>
+
+  <rect x="592" y="426" width="416" height="112" rx="8" fill="#10141A"/>
+  <text x="612" y="454" class="sans tiny" fill="#9AA6B2">CURRENT DIFF · ON DEMAND</text>
+  <text x="612" y="482" class="mono code" fill="#FF9B8A">- timeout = 5</text>
+  <text x="612" y="510" class="mono code" fill="#79D69A">+ timeout = 15</text>
+
+  <rect x="592" y="570" width="416" height="46" rx="6" fill="#FFFFFF" stroke="#4F46E5"/>
+  <text x="800" y="599" text-anchor="middle" class="sans body" fill="#4F46E5">Continue without retry</text>
+  <rect x="592" y="632" width="416" height="46" rx="6" fill="#FFFFFF" stroke="#A15C07"/>
+  <text x="800" y="661" text-anchor="middle" class="sans body" fill="#A15C07">Retry once — may duplicate</text>
+  <rect x="592" y="694" width="416" height="46" rx="6" fill="#FFFFFF" stroke="#B42318"/>
+  <text x="800" y="723" text-anchor="middle" class="sans body" fill="#B42318">Abort — preserve workspace</text>
+
+  <rect x="592" y="780" width="416" height="84" rx="8" fill="#FFF8ED" stroke="#A15C07"/>
+  <text x="612" y="810" class="sans small" fill="#A15C07">No automatic retry.</text>
+  <text x="612" y="838" class="sans small" fill="#5B6675">A checkpoint restores execution context, not files.</text>
+
+  <!-- Panel 3: narrow approval -->
+  <rect x="1080" y="72" width="480" height="860" rx="12" fill="#FFFFFF" stroke="#D8DEE6"/>
+  <text x="1112" y="112" class="sans title" fill="#182230">Narrow workspace</text>
+  <text x="1112" y="140" class="sans small" fill="#5B6675">390 px viewport · approval first · inspector below</text>
+
+  <rect x="1172" y="176" width="296" height="676" rx="28" fill="#10141A"/>
+  <rect x="1184" y="192" width="272" height="644" rx="20" fill="#F7F8FA"/>
+  <rect x="1276" y="184" width="88" height="8" rx="4" fill="#303944"/>
+
+  <rect x="1184" y="192" width="272" height="68" rx="20" fill="#FFFFFF"/>
+  <text x="1204" y="220" class="sans section" fill="#182230">pydantic-lab</text>
+  <text x="1204" y="242" class="sans small" fill="#A15C07">Awaiting approval</text>
+
+  <rect x="1200" y="284" width="240" height="56" rx="8" fill="#F0F3F6"/>
+  <text x="1216" y="308" class="sans tiny" fill="#5B6675">QUEUE / STEER</text>
+  <text x="1216" y="328" class="sans small" fill="#4F46E5">Queue selected</text>
+
+  <rect x="1200" y="360" width="240" height="228" rx="10" fill="#FFFFFF" stroke="#A15C07" stroke-width="2"/>
+  <text x="1216" y="388" class="sans tiny" fill="#A15C07">APPROVAL A3</text>
+  <text x="1216" y="416" class="sans section" fill="#182230">Edit test_retry.py</text>
+  <rect x="1216" y="436" width="208" height="56" rx="6" fill="#10141A"/>
+  <text x="1228" y="458" class="mono tiny" fill="#FF9B8A">- return call_api()</text>
+  <text x="1228" y="480" class="mono tiny" fill="#79D69A">+ return retry(...)</text>
+  <rect x="1216" y="512" width="208" height="36" rx="6" fill="#4F46E5"/>
+  <text x="1320" y="535" text-anchor="middle" class="sans small" fill="#FFFFFF">Allow Once</text>
+  <rect x="1216" y="556" width="208" height="36" rx="6" fill="#FFFFFF" stroke="#5B6675"/>
+  <text x="1320" y="579" text-anchor="middle" class="sans small" fill="#182230">Reject Once</text>
+
+  <rect x="1200" y="612" width="240" height="52" rx="8" fill="#F0F3F6"/>
+  <text x="1216" y="634" class="sans tiny" fill="#5B6675">INSPECTOR</text>
+  <text x="1216" y="654" class="sans small" fill="#182230">Trace · Diff · Sandbox · Extensions</text>
+
+  <rect x="1200" y="688" width="240" height="96" rx="10" fill="#FFFFFF" stroke="#4F46E5"/>
+  <text x="1216" y="716" class="sans small" fill="#182230">Queue a follow-up…</text>
+  <text x="1216" y="752" class="sans tiny" fill="#5B6675">ENTER SENDS</text>
+  <text x="1216" y="770" class="sans tiny" fill="#5B6675">SHIFT+ENTER NEW LINE</text>
+</svg>

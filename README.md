@@ -23,7 +23,7 @@ MySQL will hold server state. Redis will send notifications only. The API server
 
 ## Read the documents
 
-Start with the [documentation index](docs/README.md). Read the [specification](docs/specification.md) for requirements and the [architecture guide](docs/architecture.md) for component boundaries. The [CLI loop guide](docs/cli-agent-loop.md) locates model calls, tool calls, approvals, receipts, and checkpoints. The [decision record](docs/decisions.md) explains the choices.
+Start with the [documentation index](docs/README.md). Read the [specification](docs/specification.md) for requirements and the [architecture guide](docs/architecture.md) for component boundaries. The [CLI loop guide](docs/cli-agent-loop.md) locates model calls, tool calls, approvals, receipts, and checkpoints. The [CLI](docs/cli-interactions.md), [Web](docs/web-interactions.md), and [visual](docs/visual-design.md) specifications define the planned user experience. The [decision record](docs/decisions.md) explains the choices.
 
 The design uses public Pydantic AI and Harness capabilities first. Application code will supply only the controls and adapters that the framework does not provide. See the [framework integration guide](docs/integrations.md).
 

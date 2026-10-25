@@ -18,6 +18,15 @@ Status: proposed integration plan. Public documentation was reviewed on 2026-10-
 
 Framework symbols can change. Pin versions, run small probes, and record the actual hooks before building adapters. If a hook is missing, do not fill the gap with private CLAI imports.
 
+Online documentation confirms these boundaries, subject to version probes:
+
+- Deferred approvals use `DeferredToolRequests`, durable conversation state, and `DeferredToolResults`. A follow-up run has a new framework run ID. Correlate it to the logical application run.
+- StepPersistence ships in-memory, file, SQLite, MongoDB, and PostgreSQL stores. MySQL requires a custom `StepStore` adapter.
+- StepPersistence records snapshots and tool effects. Automatic execution recovery remains an application responsibility.
+- No public trust component is documented for Skills, RepoContext, or MCP configuration. Add the narrow trust adapter allowed by the specification.
+- Harness compaction strategies are model-agnostic. Provider-native compaction is documented for OpenAI and Anthropic, not for DeepSeek.
+- DockerSandbox supports creation, reattachment, and destruction. Idle stop, named workspace volumes, and network-change reconciliation stay in the application layer.
+
 ## Skills and repository instructions
 
 Skills discovers packages, exposes a catalog, and loads instructions when they are needed. `include` and `exclude` select catalog entries. They do not enforce file permissions. A trusted skill's script still runs through approved sandbox tools. See [Skills](https://pydantic.dev/docs/ai/harness/skills/).

@@ -24,6 +24,8 @@ A safe boundary has a valid message history. Do not insert a new user message be
 
 The scheduler is separate from a run. A stopped run stays cancelled after Continue. A run waiting for approval holds its session's execution slot. It does not need to hold a scarce model-request permit, and it does not need to keep an idle container running.
 
+Queue is the default while a run is active. Steer requires an explicit mode change. The [CLI interaction specification](cli-interactions.md) and [Web interaction specification](web-interactions.md) define mode feedback, shortcuts, disabled states, and control races.
+
 When steer arrives during approval, record the invalidation before accepting any further decision. Finish the framework's pending-tool protocol without running the old plan. Keep the same logical run. Do not cancel it and start another. A stale approval response has no effect.
 
 ## Permission path

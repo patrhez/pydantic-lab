@@ -45,7 +45,7 @@ Session
   +-- Sandbox binding -> container reference + workspace volume
 ```
 
-Keep a user message and its scheduling change in one transaction. Check run ownership before committing execution state. Bind an approval decision to the pending call, and reject a decision for an expired version. Save checkpoint references and their boundary events together. None of these transactions includes an external file change or command effect.
+Keep a user message and its scheduling change in one transaction. Check run ownership before committing execution state. Bind an approval decision to the pending call, and reject a decision for an invalidated request or changed policy/configuration revision. Save checkpoint references and their boundary events together. None of these transactions includes an external file change or command effect.
 
 ## Local path
 
